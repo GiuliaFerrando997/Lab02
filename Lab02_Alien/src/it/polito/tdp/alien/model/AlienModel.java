@@ -1,30 +1,43 @@
 package it.polito.tdp.alien.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class AlienModel {
 	
-	private List<Parola> parole;
-	private HashMap<String, String> mappaParole;
+	private List<Word> parole;
 	
 	public AlienModel() {
 		this.parole=new ArrayList<>();
-		this.mappaParole=new HashMap<>();
 	}
 	
-	public void aggiungiParola(Parola p) {
-		this.parole.add(p);
-		this.mappaParole.put(p.getParolaAliena(), p.getTraduzione());
+	public void aggiungiParola(Word p) {
+		boolean presente = false;
+		Word parolaTrovata = new Word(null, null);
+		for (Word w : this.parole) {
+			if(w.getAlienWord().equals(p.getAlienWord())) {
+				presente = true;
+				parolaTrovata = w;
+			}
+		}
+		
+		if(presente==true) {
+			this.parole.remove(parolaTrovata);
+		}
+
+			this.parole.add(p);	
 	}
 	
 	public String traduciParola(String aliena) {
-		return this.mappaParole.get(aliena);
+		for(Word w : this.parole) {
+			if(w.getAlienWord().equals(aliena))
+				return w.getTranslation();
+		}
+		
+		return "Non trovata";
 	}
 
 	public void cancellaDatabase() {
-		this.mappaParole.clear();
 		this.parole.clear();	
 	}
 

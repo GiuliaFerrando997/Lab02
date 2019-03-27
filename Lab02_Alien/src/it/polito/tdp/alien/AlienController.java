@@ -11,7 +11,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
 
 import it.polito.tdp.alien.model.AlienModel;
-import it.polito.tdp.alien.model.Parola;
+import it.polito.tdp.alien.model.Word;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +49,7 @@ public class AlienController {
     
     @FXML
     void doTranslate(ActionEvent event) {
+    	txtResult.clear();
     	String testo = txtWord.getText().trim().toLowerCase();
     		
     		if(testo.contains("<") && testo.contains(">")) {
@@ -62,8 +63,10 @@ public class AlienController {
     			String aliena = testo1[0].substring(1);
     			String traduzione = testo1[1].substring(0, testo1[1].length()-1);
     			if(aliena.matches("[a-zA-Z_]+") && traduzione.matches("[a-zA-Z_]+")) {
-    			Parola parola = new Parola(aliena, traduzione);
+    			Word parola = new Word(aliena, traduzione);
     			model.aggiungiParola(parola);
+    			txtResult.setText("Parola aggiunta correttamente!");
+    			txtWord.clear();
     				}
     				else {
     					txtResult.setText("Inserisci caratteri validi");

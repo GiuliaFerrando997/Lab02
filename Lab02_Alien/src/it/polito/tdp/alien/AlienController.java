@@ -5,6 +5,8 @@ package it.polito.tdp.alien;
  */
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.JFormattedTextField;
@@ -63,8 +65,7 @@ public class AlienController {
     			String aliena = testo1[0].substring(1);
     			String traduzione = testo1[1].substring(0, testo1[1].length()-1);
     			if(aliena.matches("[a-zA-Z_]+") && traduzione.matches("[a-zA-Z_]+")) {
-    			Word parola = new Word(aliena, traduzione);
-    			model.aggiungiParola(parola);
+    			model.aggiungiParola(aliena, traduzione);
     			txtResult.setText("Parola aggiunta correttamente!");
     			txtWord.clear();
     				}
@@ -74,8 +75,13 @@ public class AlienController {
     			}
     		}
     		else if (testo.matches("[a-zA-Z_]+")) {
-    			String risultato = model.traduciParola(testo);
-    			txtResult.setText(risultato+"\n");
+    			List<String> risultato = new ArrayList<>();
+				risultato.addAll(model.traduciParola(testo));
+				String finale = "";
+    			for(String s : risultato) {
+    				finale+=s+"\n";
+    			}
+    			txtResult.setText(finale);
     		}
     		
     		else {

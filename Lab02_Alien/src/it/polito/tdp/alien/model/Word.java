@@ -1,31 +1,46 @@
 package it.polito.tdp.alien.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Word {
 	
 	private String alienWord;
-	private String translation;
+	private ArrayList<String> translation;
+	
 	public String getAlienWord() {
 		return alienWord;
 	}
 	public void setAlienWord(String parolaAliena) {
 		this.alienWord = parolaAliena;
 	}
-	public String getTranslation() {
-		return translation;
+	public List<String> getTranslation() {
+		return this.translation;
 	}
 	public void setTranslation(String traduzione) {
-		this.translation = traduzione;
+		boolean trovato = false;
+		for(String s : this.translation) {
+			if(s.equals(traduzione))
+				trovato =true;
+		}
+			if(trovato==false)
+				this.translation.add(traduzione);
 	}
+	
 	public Word(String parolaAliena, String traduzione) {
 		super();
+		this.translation=new ArrayList<>();
 		this.alienWord = parolaAliena;
-		this.translation = traduzione;
+		this.translation.add(traduzione);
 	}
+	
+	/**
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((alienWord == null) ? 0 : alienWord.hashCode());
+		result = prime * result + ((translation == null) ? 0 : translation.hashCode());
 		return result;
 	}
 	
@@ -43,8 +58,17 @@ public class Word {
 				return false;
 		} else if (!alienWord.equals(other.alienWord))
 			return false;
+		if (translation == null) {
+			if (other.translation != null)
+				return false;
+		} else if (!translation.equals(other.translation))
+			return false;
 		return true;
 	}
+	
+	
+	**/
+	
 	
 	
 

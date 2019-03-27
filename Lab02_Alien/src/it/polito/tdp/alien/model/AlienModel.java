@@ -11,30 +11,35 @@ public class AlienModel {
 		this.parole=new ArrayList<>();
 	}
 	
-	public void aggiungiParola(Word p) {
+	public void aggiungiParola(String a, String t) {
 		boolean presente = false;
-		Word parolaTrovata = new Word(null, null);
+		Word parolaa = new Word(null, null);
+		//Word parolaTrovata = new Word(null, null);
 		for (Word w : this.parole) {
-			if(w.getAlienWord().equals(p.getAlienWord())) {
+			if(w.getAlienWord().equals(a)) {
 				presente = true;
-				parolaTrovata = w;
+				parolaa = w;
 			}
 		}
 		
 		if(presente==true) {
-			this.parole.remove(parolaTrovata);
+			//this.parole.get(indice).setTranslation(t);
+			parolaa.setTranslation(t);
 		}
-
-			this.parole.add(p);	
+		else {
+			Word ultima = new Word(a, t);
+			this.parole.add(ultima);
+		}
 	}
 	
-	public String traduciParola(String aliena) {
+	public List<String> traduciParola(String aliena) {
+		List<String> nonTrovata = new ArrayList<String>();
+		nonTrovata.add("Non trovata");
 		for(Word w : this.parole) {
 			if(w.getAlienWord().equals(aliena))
 				return w.getTranslation();
 		}
-		
-		return "Non trovata";
+		return nonTrovata;
 	}
 
 	public void cancellaDatabase() {
